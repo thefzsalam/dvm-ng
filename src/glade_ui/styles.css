@@ -1,0 +1,55 @@
+@define-color background_d #222930;
+@define-color background #cfd7e3;
+@define-color main_app_title_shadow #5e7185;
+@define-color text_color #fff;
+@define-color text_color_d #333;
+@define-color button_bg #0c1a30;
+@define-color button_bg_d #204a87;
+@define-color button_bg_dd #1a3de6;
+
+
+* {
+    font-family: Fira Sans Book;
+}
+
+#main_app_title {
+    text-shadow: 0px 0px 5px @main_app_title_shadow;
+}
+
+.light_bg {
+    background-color: @background;
+    color: @text_color_d;
+}
+
+.dark_bg {
+    background-color: @background_d;
+    color: @text_color;
+}
+
+button {
+    background: @button_bg;
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid @button_bg_d;
+    text-shadow: none;
+    color: @text_color;
+}
+
+button:hover {
+    background: @button_bg_d;
+    color: @text_color;
+    border: 1px solid @button_bg_dd;
+}
+
+entry {
+    border: 1px solid #333;
+    border-radius: 0;
+}
+
+label {
+    font-weight: bold;
+}
+
+button, combobox {
+    margin: 10px;
+}

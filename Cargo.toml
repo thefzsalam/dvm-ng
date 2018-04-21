@@ -1,0 +1,19 @@
+[package]
+name = "dvm-ng"
+version = "0.1.0"
+authors = ["Farzeen <12694111+thefzsalam@users.noreply.github.com>"]
+
+
+[dependencies.gtk]
+version = "0.4.0"
+features = ["v3_22"]
+
+[dependencies.gio]
+version = "0.4.0"
+
+[dependencies.rusqlite]
+version = "0.11.0"
+features = ["bundled"]
+
+[dependencies.dotenv]
+version = "0.9.0"
