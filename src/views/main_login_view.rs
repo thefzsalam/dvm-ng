@@ -1,38 +1,64 @@
 extern crate gtk;
+use gtk::prelude::*;
+
+use std::rc::Rc;
 
 const UI_FILE: &str = include_str!("../glade_ui/main_login.glade");
 
 use views::IView;
 
+/* TODO:
+    1. Show a red `invalid password` depending on the result from try_login(str,str) -> bool
+    2. Add a title saying welcome to EVM.
+    3. (Least priority) Add a cool background image.
+*/
+
 pub struct MainLoginView {
-    userIdEntry: gtk::Entry,
-    passwordEntry: gtk::Entry,
-    loginButton: gtk::Button,
-    rootContainer: gtk::Container
+    user_id_entry: gtk::Entry,
+    password_entry: gtk::Entry,
+    login_button: gtk::Button,
+    root_container: gtk::Container,
+    navigator: Rc<Navigator>
 }
 
 impl MainLoginView {
-    fn new(dbActionsHandler: &DBActionsHandler) {
+
+    pub fn new(navigator: Rc<Navigator>) -> MainLoginView {
+
         let builder = gtk::Builder::new_from_string(UI_FILE);
-        let mainLoginView = MainLoginView {
-            userIdEntry: builder.get_object("userIdEntry").unwrap(),
-            passwordEntryEntry: builder.get_object("passwordEntry").unwrap(),
-            loginButton: builder.get_object("loginButton").unwrap(),
-            rootContainer: builder.get_object("root").unwrap()
+        let main_login_view :   MainLoginView = MainLoginView {
+            user_id_entry   :   builder.get_object("user_id_entry").unwrap(),
+            password_entry  :   builder.get_object("password_entry").unwrap(),
+            login_button    :   builder.get_object("login_button").unwrap(),
+            root_container  :   builder.get_object("root_container").unwrap(),
+            navigator
         };
-        mainLoginView.loginButton.connect_click(move |_| {
-            println!("Hello world!");
+
+        let user_id_entry_clone     = main_login_view.user_id_entry.clone();
+        let password_entry_clone    = main_login_view.password_entry.clone();
+        let navigator_clone         = main_login_view.navigator.clone();
+        main_login_view.login_button.connect_clicked(move |_| {
+            println!("{}",
+                if navigator_clone.try_login(
+                    user_id_entry_clone.get_text().unwrap(),
+                    password_entry_clone.get_text().unwrap()
+                ) { "Success!"}
+                else {"Failed!"}
+            );
         });
-        mainLoginView
+
+        main_login_view
+    }
+
+}
+
+impl<'a> IView<'a> for MainLoginView {
+    fn get_root_container(&'a self) -> &'a gtk::Container {
+        &self.root_container
     }
 }
 
-impl IView for MainLoginView {
-    fn getRootContainer(&self) {
-        self.rootContainer
-    }
+pub trait Navigator {
+    fn try_login(&self, user_id: String, password: String) -> bool;
 }
 
-pub trait DBActionsHandler {
-    fn tryLogin(userId: String, password: String) -> bool;
-}

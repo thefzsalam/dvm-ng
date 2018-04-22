@@ -3,7 +3,7 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <!-- interface-css-provider-path styles.css -->
-  <object class="GtkBox" id="root">
+  <object class="GtkBox" id="root_container">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="orientation">vertical</property>
@@ -23,7 +23,7 @@
         <property name="row_spacing">10</property>
         <property name="column_spacing">30</property>
         <child>
-          <object class="GtkEntry" id="userIdEntry">
+          <object class="GtkEntry" id="user_id_entry">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">center</property>
@@ -34,7 +34,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkEntry" id="passwordEntry">
+          <object class="GtkEntry" id="password_entry">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="valign">center</property>
@@ -52,7 +52,7 @@
             <property name="halign">start</property>
             <property name="valign">center</property>
             <property name="label" translatable="yes">User ID</property>
-            <property name="accel_widget">userIdEntry</property>
+            <property name="accel_widget">user_id_entry</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -66,7 +66,7 @@
             <property name="halign">start</property>
             <property name="valign">center</property>
             <property name="label" translatable="yes">Password</property>
-            <property name="accel_widget">passwordEntry</property>
+            <property name="accel_widget">password_entry</property>
           </object>
           <packing>
             <property name="left_attach">0</property>
@@ -74,7 +74,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton" id="loginButton">
+          <object class="GtkButton" id="login_button">
             <property name="label" translatable="yes">Login</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
