@@ -35,9 +35,13 @@ button {
     color: @text_color;
 }
 
-button:hover {
+button:hover, button:focus {
     background: @button_bg_d;
-    color: @text_color;
+    border: 1px solid @button_bg_dd;
+}
+
+button:active {
+    background: @button_bg;
     border: 1px solid @button_bg_dd;
 }
 
