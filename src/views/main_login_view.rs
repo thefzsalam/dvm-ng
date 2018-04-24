@@ -1,8 +1,6 @@
 extern crate gtk;
 use gtk::prelude::*;
 
-use std::rc::Rc;
-
 const UI_FILE: &str = include_str!("../glade_ui/main_login.glade");
 
 use views::IView;
@@ -18,12 +16,12 @@ pub struct MainLoginView {
     password_entry: gtk::Entry,
     login_button: gtk::Button,
     root_container: gtk::Container,
-    navigator: Rc<Navigator>
+    navigator: &'static Navigator
 }
 
 impl MainLoginView {
 
-    pub fn new(navigator: Rc<Navigator>) -> MainLoginView {
+    pub fn new(navigator: &'static Navigator) -> MainLoginView {
 
         let builder = gtk::Builder::new_from_string(UI_FILE);
         let main_login_view :   MainLoginView = MainLoginView {
@@ -36,7 +34,8 @@ impl MainLoginView {
 
         let user_id_entry_clone     = main_login_view.user_id_entry.clone();
         let password_entry_clone    = main_login_view.password_entry.clone();
-        let navigator_clone         = main_login_view.navigator.clone();
+        let navigator_clone         = main_login_view.navigator;
+
         main_login_view.login_button.connect_clicked(move |_| {
             println!("{}",
                 if navigator_clone.try_login(
