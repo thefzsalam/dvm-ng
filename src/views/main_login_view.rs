@@ -1,9 +1,9 @@
 extern crate gtk;
 use gtk::prelude::*;
 
-const UI_FILE: &str = include_str!("../glade_ui/main_login.glade");
-
 use views::IView;
+
+const UI_FILE: &str = include_str!("../glade_ui/main_login.glade");
 
 /* TODO:
     1. Show a red `invalid password` depending on the result from try_login(str,str) -> bool
@@ -51,9 +51,9 @@ impl MainLoginView {
 
 }
 
-impl<'a> IView<'a> for MainLoginView {
-    fn get_root_container(&'a self) -> &'a gtk::Container {
-        &self.root_container
+impl IView for MainLoginView {
+    fn get_root_container(&self) -> gtk::Container {
+        self.root_container.clone()
     }
 }
 

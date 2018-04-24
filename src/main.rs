@@ -18,8 +18,8 @@ fn main() {
 fn activate(app: &gtk::Application) {
     let window          = gtk::ApplicationWindow::new(&app);
     __load_stylesheet(&window);
-    let main_root       = MainLoginView::new(&MAIN_APP);
-    window.add(main_root.get_root_container());
+    let main_root       = HomeView::new(&MAIN_APP);
+    window.add(&main_root.get_root_container());
     app.add_window(&window);
     window.present();
 }

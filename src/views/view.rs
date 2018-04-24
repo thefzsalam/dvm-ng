@@ -1,5 +1,5 @@
 extern crate gtk;
 
-pub trait IView<'a> {
-    fn get_root_container(&'a self) -> &'a gtk::Container;
+pub trait IView {
+    fn get_root_container(&self) -> gtk::Container;
 }
