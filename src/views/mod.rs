@@ -1,8 +1,12 @@
-mod view;
-pub use self::view::IView;
+//mod view;
+//pub use self::view::IView;
+//
+//pub mod main_login_view;
+//pub use self::main_login_view::MainLoginView;
+//
+//pub mod home_view;
+//pub use self::home_view::HomeView;
+#[macro_use]
+mod macros;
 
-pub mod main_login_view;
-pub use self::main_login_view::MainLoginView;
-
-pub mod home_view;
-pub use self::home_view::HomeView;
+pub mod data_entry_view;
