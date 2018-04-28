@@ -6,20 +6,20 @@ pub struct Admin {
 
 pub struct Candidate {
     pub id: u64,
-    pub name: str,
+    pub name: String,
     pub election_session_id: u64,
     pub constituency_id: u64 //ignored for presidential candidate
 }
 
 pub struct Constituency {
     pub id: u64,
-    pub name: str,
+    pub name: String,
     pub population: u64
 }
 
 pub struct ElectionSession {
     pub id: u64,
-    pub name: str,
+    pub name: String,
     pub is_presidential: bool
 }
 
