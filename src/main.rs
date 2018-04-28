@@ -1,32 +1,33 @@
+#![feature(arbitrary_self_types)]
 extern crate gtk;
-extern crate gio;
 use gtk::*;
-use gio::*;
+
 mod views;
-use views::*;
+mod models;
+
 mod main_app;
 use main_app::*;
 
-const MAIN_APP:MainApp = MainApp {};
+use std::rc::Rc;
+
 
 fn main() {
-    let application = gtk::Application::new("in.fzs.democracy",gio::ApplicationFlags::FLAGS_NONE).unwrap();
-    application.connect_activate(activate);
-    application.run(&[]);
-}
+    gtk::init().unwrap();
+    let window = Window::new(WindowType::Toplevel);
+    window.connect_delete_event(|_,_| {
+        gtk::main_quit();
+        Inhibit(false)
+    });
 
-fn activate(app: &gtk::Application) {
-    let window          = gtk::ApplicationWindow::new(&app);
     __load_stylesheet(&window);
-    let main_root       = HomeView::new(&MAIN_APP);
-    window.add(&main_root.get_root_container());
-    app.add_window(&window);
-    window.present();
+    let main_app:Rc<MainApp> = Rc::from(MainApp::new(window));
+    main_app.start();
+    gtk::main();
 }
 
-fn __load_stylesheet(window: &gtk::ApplicationWindow) {
+fn __load_stylesheet(_window: &gtk::Window) {
     let css_provider    = CssProvider::new();
-    let _result         = css_provider.load_from_data(include_str!("glade_ui/styles.css").as_bytes());
-    StyleContext::add_provider_for_screen(&window.get_screen().unwrap(),&css_provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
+    let _result      = css_provider.load_from_data(include_str!("glade_ui/styles.css").as_bytes());
+    StyleContext::add_provider_for_screen(&_window.get_screen().unwrap(), &css_provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
 }
 
