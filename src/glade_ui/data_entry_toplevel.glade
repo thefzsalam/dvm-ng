@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.22.1 -->
+<interface>
+  <requires lib="gtk+" version="3.20"/>
+  <!-- interface-css-provider-path styles.css -->
+  <object class="GtkBox" id="root_container">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="valign">start</property>
+        <property name="resize_mode">immediate</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GtkButton" id="home_button">
+            <property name="label" translatable="yes">Home</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_left">10</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="id_cards_button">
+            <property name="label" translatable="yes">ID Cards</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_right">10</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="candidates_button">
+            <property name="label" translatable="yes">Candidates</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="constituencies_button">
+            <property name="label" translatable="yes">Constituencies</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="election_sessions_button">
+            <property name="label" translatable="yes">Election Sessions</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <property name="margin_top">10</property>
+            <property name="margin_bottom">10</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">6</property>
+          </packing>
+        </child>
+        <style>
+          <class name="dark_bg"/>
+        </style>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+</interface>

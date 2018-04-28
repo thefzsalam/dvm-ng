@@ -3,7 +3,8 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <!-- interface-css-provider-path styles.css -->
-  <object class="GtkGrid">
+  <object class="GtkGrid" id="root_container">
+    <property name="name">root_container</property>
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="halign">center</property>
@@ -13,11 +14,11 @@
     <property name="row_spacing">10</property>
     <property name="column_spacing">10</property>
     <child>
-      <object class="GtkAccelLabel" id="constituency_population_label">
+      <object class="GtkAccelLabel" id="election_session_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
-        <property name="label" translatable="yes">Population</property>
+        <property name="label" translatable="yes">Election Session</property>
       </object>
       <packing>
         <property name="left_attach">0</property>
@@ -25,7 +26,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkAccelLabel" id="constituency_name_label">
+      <object class="GtkAccelLabel" id="name_label">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="halign">start</property>
@@ -37,7 +38,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="constituency_name">
+      <object class="GtkEntry" id="name_entry">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
       </object>
@@ -47,7 +48,7 @@
       </packing>
     </child>
     <child>
-      <object class="GtkEntry" id="constituency_population">
+      <object class="GtkEntry" id="election_session_entry">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="input_purpose">number</property>
@@ -55,6 +56,30 @@
       <packing>
         <property name="left_attach">1</property>
         <property name="top_attach">1</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkAccelLabel" id="constituency_label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="halign">start</property>
+        <property name="label" translatable="yes">Constituency</property>
+      </object>
+      <packing>
+        <property name="left_attach">0</property>
+        <property name="top_attach">2</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkComboBox" id="constituency_combo_box">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="row_span_column">0</property>
+        <property name="column_span_column">0</property>
+      </object>
+      <packing>
+        <property name="left_attach">1</property>
+        <property name="top_attach">2</property>
       </packing>
     </child>
   </object>
