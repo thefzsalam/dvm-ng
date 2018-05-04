@@ -1,7 +1,5 @@
 extern crate gtk;
 use gtk::prelude::*;
-use ::models::*;
-use std::rc::Rc;
 use views::IView;
 
 mod uifiles {
@@ -53,7 +51,6 @@ impl DataEntryView {
         view.data_entry_view_container.home_button.connect_clicked(move |_| {
             navigator.go_home();
         });
-
         view
     }
 }
