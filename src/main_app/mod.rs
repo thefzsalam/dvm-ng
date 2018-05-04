@@ -34,16 +34,22 @@ struct Views {
 impl MainApp {
 
     /**
-     * Take ownership of a window and return an instance of MainApp.
+     * Take ownership of a window and return a heap allocated instance of MainApp.
+     *
+     * If we simply instantiate a MainApp and move it out of the constructor by returning,
+     * all references created by get_static_ref() will be invalidated by moving out of the stack
+     * frame of constructed function.
+     * This had caused SIGSEGV when the views tried to use the passed static_ref.
+     * This is solved by heap allocating MainApp, giving it a permanent address.
      */
-    pub fn new(window: gtk::Window) -> Self {
+    pub fn new(window: gtk::Window) -> Box<MainApp> {
         // members of `Views` need `&'static MainApp` in their constructors, which won't be available
         // until after MainApp is constructed. This is because they need a reference to the
         // trait objects like `Navigator`, `CRUDHandler`, and currently they are implemented by MainApp.
-        let mut main_app = MainApp {
+        let mut main_app = Box::from(MainApp {
             window,
             views: DelayedInitializer::new_uninitialized()
-        };
+        });
         let static_ref = main_app.get_static_ref();
         let views = Views {
             data_entry: views::data_entry_view::DataEntryView::load(static_ref)
@@ -76,6 +82,8 @@ impl MainApp {
     /**
      * Unsafely creates `&'static MainApp`, for passing into view modules,
      * which require them for use in button callbacks and other UI event callbacks.
+     * *NOTE:* If the instance of MainApp is moved, all references returned by get_static_ref() will
+     * be invalidated. This is not checked by borrow checker.
      */
     fn get_static_ref(&self) -> &'static Self {
         let p = self as *const Self;
@@ -84,4 +92,3 @@ impl MainApp {
         }
     }
 }
-
