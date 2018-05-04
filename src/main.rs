@@ -19,13 +19,13 @@ fn main() {
         Inhibit(false)
     });
 
-    __load_stylesheet(&window);
-    let main_app:Rc<MainApp> = Rc::from(MainApp::new(window));
+    load_stylesheet(&window);
+    let main_app = MainApp::new(window);
     main_app.start();
     gtk::main();
 }
 
-fn __load_stylesheet(_window: &gtk::Window) {
+fn load_stylesheet(_window: &gtk::Window) {
     let css_provider    = CssProvider::new();
     let _result      = css_provider.load_from_data(include_str!("glade_ui/styles.css").as_bytes());
     StyleContext::add_provider_for_screen(&_window.get_screen().unwrap(), &css_provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
