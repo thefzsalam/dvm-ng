@@ -2,6 +2,7 @@ extern crate gtk;
 use gtk::prelude::*;
 use ::models::*;
 use std::rc::Rc;
+use views::IView;
 
 mod uifiles {
     pub const TOPLEVEL: &str            = include_str!("../../glade_ui/data_entry_toplevel.glade");
@@ -27,8 +28,42 @@ struct GenericListView {
 });
 
 pub struct DataEntryView {
-    data_entry_view: DataEntryViewContainer,
+    data_entry_view_container: DataEntryViewContainer,
     generic_list_view: GenericListView,
+    navigator: &'static Navigator
+}
+
+impl DataEntryView {
+    pub fn load(navigator: &'static Navigator) -> Self{
+        let view = DataEntryView {
+            data_entry_view_container: DataEntryViewContainer::build(
+                &gtk::Builder::new_from_string(uifiles::TOPLEVEL)),
+            generic_list_view: GenericListView::build(
+                &gtk::Builder::new_from_string(uifiles::GENERIC_LIST_VIEW)),
+            navigator
+        };
+        view.data_entry_view_container.root_container.pack_end(
+            &view.generic_list_view.root_container,
+            true,
+            true,
+        0);
+
+        // looks like the move keyword here doesn't prevent the reuse of the reference navigator.
+        // probably it is cloning the *reference* while moving.
+        view.data_entry_view_container.home_button.connect_clicked(move |_| {
+            navigator.go_home();
+        });
+
+        view
+    }
+}
+
+impl IView for DataEntryView {
+    fn get_root_container(&self) -> gtk::Container {
+        self.data_entry_view_container.root_container
+            .clone()
+            .upcast::<gtk::Container>()
+    }
 }
 
 /* database is open as long as the app is alive.
@@ -40,37 +75,6 @@ pub struct DataEntryView {
 //    constituencies_db   : &'static CRUDHandler<Constituency>,
 //    candidates_db       : &'static CRUDHandler<Candidate>
 }*/
-
-pub fn load_ui_logic (navigator: &'static Navigator) -> gtk::Container
-{
-    let ui = load_all_ui_components();
-    ui.data_entry_view.root_container.pack_end(&ui.generic_list_view.root_container,true, true, 0);
-
-    // looks like the move keyword here doesn't prevent the reuse of the reference navigator.
-    // probably it is cloning the *reference* while moving.
-    ui.data_entry_view.home_button.connect_clicked(move |_| {
-        navigator.go_home();
-    });
-
-    ui.data_entry_view.root_container.upcast::<gtk::Container>()
-}
-
-fn load_all_ui_components() -> UI {
-    UI{
-        data_entry_view: DataEntryViewContainer::build(
-            &gtk::Builder::new_from_string(uifiles::TOPLEVEL)),
-        generic_list_view: GenericListView::build(
-            &gtk::Builder::new_from_string(uifiles::GENERIC_LIST_VIEW)),
-    }
-}
-
-fn load_election_sessions_editing(generic_list_view: &GenericListView,
-                                  election_sessions_db: &CRUDHandler<ElectionSession>) {
-    /* TODO */
-}
-
-
-
 
 pub trait Navigator {
     fn go_home(&self);

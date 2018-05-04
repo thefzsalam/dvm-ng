@@ -10,3 +10,6 @@
 mod macros;
 
 pub mod data_entry_view;
+
+mod view;
+pub use self::view::IView;
